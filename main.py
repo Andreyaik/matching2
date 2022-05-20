@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import uuid
 import torch.nn.functional as F
 import torch
 from transformers import AutoTokenizer
@@ -37,8 +38,9 @@ def nn_match(new_item, all_dataset, model_m, tokenizer_m, threshold=0.5, k_match
 
     # if the confidence after TF IDF comparison is lower threshold, then this is a new position
     if matched_tfidf['Lookup 1 Confidence'].values[0] < threshold:
-        print('Dataset have not this position')
-        return
+        # print('Dataset have not this position')
+        new_id = uuid.uuid1()
+        return new_id
 
     # select indexes of the most similar positions
     for i in range(1, k_matches + 1):
